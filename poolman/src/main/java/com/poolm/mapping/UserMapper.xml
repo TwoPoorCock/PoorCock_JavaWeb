@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.poolm.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.poolm.pojo.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="weiteng" property="weiteng" jdbcType="INTEGER" />
+    <result column="kouqiangky" property="kouqiangky" jdbcType="INTEGER" />
+    <result column="yayingcx" property="yayingcx" jdbcType="INTEGER" />
+    <result column="jianfei" property="jianfei" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userName, gender, phone, height, weight, weiteng, kouqiangky, yayingcx, jianfei
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="com.poolm.pojo.User" >
+    select  
+    <include refid="Base_Column_List" />
+    from user_
+    where userName = #{userName}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.poolm.pojo.User" >
+    insert into user_ (id, userName, gender, 
+      phone, height, weight, 
+      weiteng, kouqiangky, yayingcx, 
+      jianfei)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
+      #{weiteng,jdbcType=INTEGER}, #{kouqiangky,jdbcType=INTEGER}, #{yayingcx,jdbcType=INTEGER}, 
+      #{jianfei,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.poolm.pojo.User" >
+    insert into user_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="weiteng != null" >
+        weiteng,
+      </if>
+      <if test="kouqiangky != null" >
+        kouqiangky,
+      </if>
+      <if test="yayingcx != null" >
+        yayingcx,
+      </if>
+      <if test="jianfei != null" >
+        jianfei,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weiteng != null" >
+        #{weiteng,jdbcType=INTEGER},
+      </if>
+      <if test="kouqiangky != null" >
+        #{kouqiangky,jdbcType=INTEGER},
+      </if>
+      <if test="yayingcx != null" >
+        #{yayingcx,jdbcType=INTEGER},
+      </if>
+      <if test="jianfei != null" >
+        #{jianfei,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.poolm.pojo.User" >
+    update user_
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="weiteng != null" >
+        weiteng = #{weiteng,jdbcType=INTEGER},
+      </if>
+      <if test="kouqiangky != null" >
+        kouqiangky = #{kouqiangky,jdbcType=INTEGER},
+      </if>
+      <if test="yayingcx != null" >
+        yayingcx = #{yayingcx,jdbcType=INTEGER},
+      </if>
+      <if test="jianfei != null" >
+        jianfei = #{jianfei,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.poolm.pojo.User" >
+    update user_
+    set userName = #{username,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      height = #{height,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=DOUBLE},
+      weiteng = #{weiteng,jdbcType=INTEGER},
+      kouqiangky = #{kouqiangky,jdbcType=INTEGER},
+      yayingcx = #{yayingcx,jdbcType=INTEGER},
+      jianfei = #{jianfei,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.poolm.dao.DishMapper" >
+  <resultMap id="BaseResultMap" type="com.poolm.pojo.Dish" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dishName" property="dishname" jdbcType="VARCHAR" />
+    <result column="flag_r" property="flagR" jdbcType="TINYINT" />
+    <result column="flag_h" property="flagH" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dishName, flag_r, flag_h, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dish
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dish
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.poolm.pojo.Dish" >
+    insert into dish (id, dishName, flag_r, 
+      flag_h, type)
+    values (#{id,jdbcType=INTEGER}, #{dishname,jdbcType=VARCHAR}, #{flagR,jdbcType=TINYINT}, 
+      #{flagH,jdbcType=TINYINT}, #{type,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.poolm.pojo.Dish" >
+    insert into dish
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dishname != null" >
+        dishName,
+      </if>
+      <if test="flagR != null" >
+        flag_r,
+      </if>
+      <if test="flagH != null" >
+        flag_h,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dishname != null" >
+        #{dishname,jdbcType=VARCHAR},
+      </if>
+      <if test="flagR != null" >
+        #{flagR,jdbcType=TINYINT},
+      </if>
+      <if test="flagH != null" >
+        #{flagH,jdbcType=TINYINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.poolm.pojo.Dish" >
+    update dish
+    <set >
+      <if test="dishname != null" >
+        dishName = #{dishname,jdbcType=VARCHAR},
+      </if>
+      <if test="flagR != null" >
+        flag_r = #{flagR,jdbcType=TINYINT},
+      </if>
+      <if test="flagH != null" >
+        flag_h = #{flagH,jdbcType=TINYINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.poolm.pojo.Dish" >
+    update dish
+    set dishName = #{dishname,jdbcType=VARCHAR},
+      flag_r = #{flagR,jdbcType=TINYINT},
+      flag_h = #{flagH,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
