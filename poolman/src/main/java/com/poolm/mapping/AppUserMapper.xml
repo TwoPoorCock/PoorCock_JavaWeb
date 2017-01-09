@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.poolm.dao.AppUserMapper" >
+	<resultMap id="BaseResultMap" type="com.poolm.pojo.User" >
+   		<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="userName" property="username" jdbcType="VARCHAR" />
+    	<result column="passWord" property="passWord" jdbcType="VARCHAR" />
+    	<result column="gender" property="gender" jdbcType="VARCHAR" />
+    	<result column="phone" property="phone" jdbcType="VARCHAR" />
+    	<result column="height" property="height" jdbcType="DOUBLE" />
+    	<result column="weight" property="weight" jdbcType="DOUBLE" />
+    	<result column="weiteng" property="weiteng" jdbcType="INTEGER" />
+    	<result column="kouqiangky" property="kouqiangky" jdbcType="INTEGER" />
+    	<result column="yayingcx" property="yayingcx" jdbcType="INTEGER" />
+    	<result column="jianfei" property="jianfei" jdbcType="INTEGER" />
+  	</resultMap>
+	<select id="selectByUserName" resultType="java.util.Map" parameterType="java.lang.String" >
+    	select u.id,u.userName,u.passWord,u.gender,u.phone,u.height,u.weight,u.weiteng,u.kouqiangky,u.yayingcx,u.jianfei
+    	from user_ u
+    	where u.userName = #{userName}
+  	</select>
+  	
+  	<select id="appLogin" resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select u.id,u.userName,u.passWord,u.gender,u.phone,u.height,u.weight,u.weiteng,u.kouqiangky,u.yayingcx,u.jianfei
+    	from user_ u
+		where u.userName = #{userName} and u.passWord = #{passWord}  		
+  	</select>
+  	
+	<insert id="addUser" parameterType="com.poolm.pojo.User">
+		insert into user_ (id, userName, passWord, gender, 
+      phone, height, weight, 
+      weiteng, kouqiangky, yayingcx, 
+      jianfei)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
+      #{weiteng,jdbcType=INTEGER}, #{kouqiangky,jdbcType=INTEGER}, #{yayingcx,jdbcType=INTEGER}, 
+      #{jianfei,jdbcType=INTEGER})
+	</insert>
+
+</mapper>

@@ -4,6 +4,8 @@ public class User {
     private Integer id;
 
     private String username;
+    
+    private String passWord;
 
     private String gender;
 
@@ -36,8 +38,16 @@ public class User {
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
     }
+    
+    public String getPassWord() {
+		return passWord;
+	}
 
-    public String getGender() {
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public String getGender() {
         return gender;
     }
 

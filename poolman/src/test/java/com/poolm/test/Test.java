@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
 import com.poolm.pojo.User;
-import com.poolm.service.IUserService;
+import com.poolm.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
@@ -20,7 +20,7 @@ public class Test {
 	private static Logger logger = Logger.getLogger(Test.class);
 	
 	@Resource
-	private IUserService userService = null;
+	private UserService userService = null;
 	
 	@org.junit.Test
 	public void test() {

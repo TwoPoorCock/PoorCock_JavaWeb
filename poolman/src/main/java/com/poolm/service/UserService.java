@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.poolm.dao.UserMapper;
 import com.poolm.pojo.User;
-import com.poolm.service.impl.UserService;
+import com.poolm.service.impl.IUserService;
 
 @Service("userService")
-public class IUserService implements UserService {
+public class UserService implements IUserService {
 
 	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(IUserService.class);
+	private static Logger logger = Logger.getLogger(UserService.class);
 	
 	@Resource
     private UserMapper userDao;

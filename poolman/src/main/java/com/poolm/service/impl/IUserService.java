@@ -2,7 +2,7 @@ package com.poolm.service.impl;
 
 import com.poolm.pojo.User;
 
-public interface UserService {
+public interface IUserService {
 	
 	public User getUserById(int userId);
 	

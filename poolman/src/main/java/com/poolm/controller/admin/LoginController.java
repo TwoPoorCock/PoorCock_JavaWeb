@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poolm.pojo.User;
-import com.poolm.service.IUserService;
+import com.poolm.service.UserService;
 
 import com.poolm.util.TextHelper;
 
@@ -19,7 +19,7 @@ public class LoginController {
 	private static Logger logger = Logger.getLogger(LoginController.class);
 	
 	@Resource
-	private IUserService userService; 
+	private UserService userService; 
 	
 	@RequestMapping("/admin_login")
 	public String adminLogin(){
