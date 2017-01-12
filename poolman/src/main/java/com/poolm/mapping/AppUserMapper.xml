@@ -27,14 +27,31 @@
   	</select>
   	
 	<insert id="addUser" parameterType="com.poolm.pojo.User">
-		insert into user_ (id, userName, passWord, gender, 
-      phone, height, weight, 
-      weiteng, kouqiangky, yayingcx, 
-      jianfei)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
-      #{weiteng,jdbcType=INTEGER}, #{kouqiangky,jdbcType=INTEGER}, #{yayingcx,jdbcType=INTEGER}, 
-      #{jianfei,jdbcType=INTEGER})
+		insert into user_ (id, userName, passWord, gender, phone, height, weight, 
+      		weiteng, kouqiangky, yayingcx,jianfei)
+    		values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      			#{phone,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
+      			#{weiteng,jdbcType=INTEGER}, #{kouqiangky,jdbcType=INTEGER}, #{yayingcx,jdbcType=INTEGER}, 
+      			#{jianfei,jdbcType=INTEGER})
 	</insert>
+	
+	<select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    	select u.id,u.userName,u.passWord,u.gender,u.phone,u.height,u.weight,u.weiteng,u.kouqiangky,u.yayingcx,u.jianfei
+    	from user_ u
+    	where u.id = #{id,jdbcType=INTEGER}
+  	</select>
+  	
+  	<update id="updateByPrimaryKey" parameterType="com.poolm.pojo.User" >
+    	update user_
+    		set gender = #{gender,jdbcType=VARCHAR},
+      		phone = #{phone,jdbcType=VARCHAR},
+      		height = #{height,jdbcType=DOUBLE},
+      		weight = #{weight,jdbcType=DOUBLE},
+      		weiteng = #{weiteng,jdbcType=INTEGER},
+      		kouqiangky = #{kouqiangky,jdbcType=INTEGER},
+      		yayingcx = #{yayingcx,jdbcType=INTEGER},
+      		jianfei = #{jianfei,jdbcType=INTEGER}
+    	where id = #{id,jdbcType=INTEGER}
+  	</update>
 
 </mapper>

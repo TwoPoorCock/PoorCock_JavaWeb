@@ -4,19 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 客户端数据封装类
+ * 
  * 
  * @author YQH
  * 
  */
 public class AppData {
 	private Map<String, Object> data = null;
-	private int status = 0;// 标识
+	private int status = 0;
 	private String msg = null;
 	private Page page = null;
 
 	/**
-	 * 构造函数，直接实例化data，并且把<key,o>放入data中
+	 *
 	 * 
 	 * @param isCreateMap
 	 */
@@ -27,11 +27,11 @@ public class AppData {
 	}
 
 	/**
-	 * 构造函数
+	 *
 	 * 
 	 * @param a
 	 * @param isCreateData
-	 *            是否实例化data
+	 *
 	 */
 	public AppData(int a, boolean isCreateData) {
 		this.status = a;
@@ -40,13 +40,13 @@ public class AppData {
 	}
 
 	/**
-	 * 构造函数
+	 *
 	 */
 	public AppData() {
 	}
 
 	/**
-	 * 往data中添加数据
+	 *
 	 * 
 	 * @param key
 	 * @param o
@@ -58,7 +58,7 @@ public class AppData {
 	}
 
 	/**
-	 * 往data中添加数据
+	 *
 	 * 
 	 * @param key
 	 * @param o

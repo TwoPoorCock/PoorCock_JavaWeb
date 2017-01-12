@@ -16,13 +16,14 @@ public class TextHelper {
 		return object == null || "".equals(object);
 	}
 	/**
-	 * 通用的截取字符串的方法
+	 * ͨ�õĽ�ȡ�ַ����ķ���
+	 * 
 	 * @param length
-	 * 			截取字符串的长度
-	 * @param isReplaceHtml
-	 * 			是否去除html标签
+	 *            ��ȡ�ַ����ĳ���
+	 * @param bool
+	 *            �Ƿ�ȥ��html��ǩ
 	 * @param text
-	 * 			要处理的字符串
+	 *            Ҫ������ַ���
 	 * @return
 	 */
 	public static String subString(int length, boolean isReplaceHtml, String text) {
@@ -35,7 +36,8 @@ public class TextHelper {
 		return text;
 	}
 	/**
-	 * 对文本去除HTML标签
+	 * ���ı�ȥ��HTML��ǩ
+	 * 
 	 * @param text
 	 * @return
 	 */
@@ -45,8 +47,8 @@ public class TextHelper {
 		return text.replaceAll("\t|\r|\n|<[^>]*?>|&nbsp;", "").trim().replaceAll("\u3000", "");
 	}
 	/**
-	 * 获取富文本内容中的图片链接地址
-	 * @param text
+	 * ��ȡ���ı������е�ͼƬ���ӵ�ַ
+	 * 
 	 * @return
 	 */
 	public static List<String> getTextImageSrc(String text) {
@@ -56,10 +58,10 @@ public class TextHelper {
 		Pattern pa = Pattern.compile(regex, Pattern.DOTALL);
 		Matcher ma = pa.matcher(text);
 		List<String> list = new ArrayList<String>();
-		while (ma.find()) {// 首先判断话题内容中是否有图片
+		while (ma.find()) {// �����жϻ����������Ƿ���ͼƬ
 			list.add(ma.group());
 		}
-		if (list.size() != 0) {// 有图片文件
+		if (list.size() != 0) {// ��ͼƬ�ļ�
 			List<String> imgSrcList = null;
 			String a = null;
 			for (String s : list) {
@@ -85,7 +87,7 @@ public class TextHelper {
 		}
 	}
 	/**
-	 * 判断字符串中只包含:汉字,数字和字母
+	 * �ж��û����Ƿ�Ϊ��Ч
 	 * @param nick
 	 * @return
 	 */

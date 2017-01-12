@@ -24,9 +24,9 @@ import com.poolm.util.JsonHelper;
 
 
 /**
- * ¸¸Àà¿ØÖÆÆ÷£¬ÎªËùÓÐ×ÓÀà¿ØÖÆÆ÷Ìá¹©¹«¹²·½·¨
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * 
- * @author À×ÅÊ
+ * @author ï¿½ï¿½ï¿½ï¿½
  * 
  */
 public class BaseController {
@@ -34,36 +34,36 @@ public class BaseController {
     public static Logger log = Logger.getLogger(BaseController.class);
 
     /**
-     * ºóÌ¨´íÎóÊÓÍ¼
+     * ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
      */
     protected final static String ERROR_VIEW_ADMIN = "/error/404";
 
     /**
-     * Ç°Ì¨´íÎóÊÓÍ¼
+     * Ç°Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
      */
     protected final static String ERROR_VIEW = "";
 
-    protected final static int SUCCESS = 1;// ³É¹¦
+    protected final static int SUCCESS = 1;// ï¿½É¹ï¿½
 
-    protected final static int FAIL = 0;// Ê§°Ü
+    protected final static int FAIL = 0;// Ê§ï¿½ï¿½
 
-    protected final static int EMPTY = 2;// ¿Õ
+    protected final static int EMPTY = 2;// ï¿½ï¿½
 
-    protected final static int ERROR = 3;// Ê§°Ü
+    protected final static int ERROR = 3;// Ê§ï¿½ï¿½
 
-    protected final static int FORMAT = 4;// ¸ñÊ½
+    protected final static int FORMAT = 4;// ï¿½ï¿½Ê½
 
-    protected final static int SIZE = 5;// ´óÐ¡
+    protected final static int SIZE = 5;// ï¿½ï¿½Ð¡
 
-    protected final static int EXIST = 6;// ÒÑ¾­´æÔÚ
+    protected final static int EXIST = 6;// ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    protected final static int PROPROTION = 7;// Í¼Æ¬±ÈÀý
+    protected final static int PROPROTION = 7;// Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 
-    protected final static String DATA = "data";// Êý¾Ý
+    protected final static String DATA = "data";// ï¿½ï¿½ï¿½ï¿½
 
     protected final static String STATUS = "status";// ×´Ì¬
 
-    protected final static String OUTSUPPLY = "outSupply";// ³¬³ö¿â´æ
+    protected final static String OUTSUPPLY = "outSupply";// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public void renderJson(Object obj) {
         PrintWriter out = null;
@@ -92,7 +92,7 @@ public class BaseController {
     }
 
     /**
-     * ajaxÇëÇó»òÕß¿Í»§¶ËÇëÇó,½«·µ»ØµÄjsonÊý¾Ý
+     * ajaxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½jsonï¿½ï¿½ï¿½ï¿½
      * 
      * @param obj
      */
@@ -158,21 +158,21 @@ public class BaseController {
         return request.getSession();
     }
 
-    /** »ùÓÚ@ExceptionHandlerÒì³£´¦Àí */
+    /** ï¿½ï¿½ï¿½ï¿½@ExceptionHandlerï¿½ì³£ï¿½ï¿½ï¿½ï¿½ */
     @ExceptionHandler
     public String exp(HttpServletRequest request, Exception ex) {
         request.setAttribute("ex", ex);
         String requestType = request.getHeader("X-Requested-With");
         if (HttpRequestDeviceUtils.isMobileDevice(request) == false) {
             if (StringUtils.equals(requestType, "XMLHttpRequest")) {
-                // ÊÇajaxÇëÇó£¬·µ»Øjson
+                // ï¿½ï¿½ajaxï¿½ï¿½ï¿½ó£¬·ï¿½ï¿½ï¿½json
                 returnJson(ex);
                 return null;
             } else {
                 return "error/500.jsp";
             }
         } else {
-            // ÊÖ»ú·ÃÎÊ£¬·µ»Øjson
+            // ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ï¿½json
             returnJson(ex);
             return null;
         }

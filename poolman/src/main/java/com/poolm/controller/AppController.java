@@ -18,83 +18,85 @@ import com.poolm.util.JsonHelper;
 import com.poolm.util.ValidateHelper;
 
 /**
- * ¸¸Àà¿ØÖÆÆ÷£¬ÎªËùÓĞ×ÓÀà¿ØÖÆÆ÷Ìá¹©¹«¹²·½·¨
+ * çˆ¶ç±»æ§åˆ¶å™¨ï¼Œä¸ºæ‰€æœ‰å­ç±»æ§åˆ¶å™¨æä¾›å…¬å…±æ–¹æ³•
  * 
- * @author À×ÅÊ
+ * @author é›·æ”€
  * 
  */
 public class AppController extends BaseController {
 
-    public final static int FAIL = 0;// Ê§°Ü
+    public final static int FAIL = 0;// å¤±è´¥
 
-    public final static int SUCCESS = 1;// ³É¹¦
+    public final static int SUCCESS = 1;// æˆåŠŸ
+    
+    public final static String MSG_SUCCESS = "æ“ä½œæˆåŠŸ";//æ“ä½œæˆåŠŸ
 
-    protected final static String PARAM_ERROR = "²ÎÊı´íÎó";// ²ÎÊı´íÎó
+    protected final static String PARAM_ERROR = "å‚æ•°é”™è¯¯";// å‚æ•°é”™è¯¯
 
-    protected final static String PARAM_NULL = "²ÎÊı²»È«»òÕßÎª¿Õ";// ²ÎÊıÎª¿Õ
+    protected final static String PARAM_NULL = "å‚æ•°ä¸å…¨æˆ–è€…ä¸ºç©º";// å‚æ•°ä¸ºç©º
 
-    protected final static String PARAM_ILLEGAL = "²ÎÊı²»·ûºÏ¹æ·¶";// ²ÎÊı²»·ûºÏ¹æ·¶
+    protected final static String PARAM_ILLEGAL = "å‚æ•°ä¸ç¬¦åˆè§„èŒƒ";// å‚æ•°ä¸ç¬¦åˆè§„èŒƒ
 
-    protected final static String PARAM_EXIST = "²ÎÊıÒÑ´æÔÚ";// ²ÎÊıÒÑ´æÔÚ
+    protected final static String PARAM_EXIST = "å‚æ•°å·²å­˜åœ¨";// å‚æ•°å·²å­˜åœ¨
 
-    protected final static String PARAM_NOT_EXIST = "²ÎÊı²»´æÔÚ";// ²ÎÊı²»´æÔÚ
+    protected final static String PARAM_NOT_EXIST = "å‚æ•°ä¸å­˜åœ¨";// å‚æ•°ä¸å­˜åœ¨
 
-    protected final static String RESULT_EMPTY = "½á¹ûÎª¿Õ";// ½á¹ûÎª¿Õ
+    protected final static String RESULT_EMPTY = "ç»“æœä¸ºç©º";// ç»“æœä¸ºç©º
 
-    protected final static String USER_NOT_EXIST = "ÓÃ»§²»´æÔÚ";// ÓÃ»§²»´æÔÚ
+    protected final static String USER_NOT_EXIST = "ç”¨æˆ·ä¸å­˜åœ¨";// ç”¨æˆ·ä¸å­˜åœ¨
 
-    protected final static String USER_EXIST = "ÓÃ»§ÒÑ´æÔÚ";// ÓÃ»§ÒÑ´æÔÚ
+    protected final static String USER_EXIST = "ç”¨æˆ·å·²å­˜åœ¨";// ç”¨æˆ·å·²å­˜åœ¨
 
-    // ĞÂÔö
-    protected final static String ACCOUNT_OR_PASSWORD_ERROR = "ÓÃ»§Ãû»òÕßÃÜÂë´íÎó";// ÓÃ»§Ãû»òÃÜÂë´íÎó
+    // æ–°å¢
+    protected final static String ACCOUNT_OR_PASSWORD_ERROR = "ç”¨æˆ·åæˆ–è€…å¯†ç é”™è¯¯";// ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯
 
-    // ĞÂÔö
-    protected final static String SMS_NOT_MATCH = "ÑéÖ¤Âë²»Æ¥Åä";// ¶ÌĞÅÑéÖ¤Âë²»Æ¥Åä
+    // æ–°å¢
+    protected final static String SMS_NOT_MATCH = "éªŒè¯ç ä¸åŒ¹é…";// çŸ­ä¿¡éªŒè¯ç ä¸åŒ¹é…
 
-    // ĞÂÔö
-    protected final static String SMS_IS_TIMEOUT = "ÑéÖ¤Âë³¬Ê±";// ¶ÌĞÅÑéÖ¤Âë³¬Ê±
+    // æ–°å¢
+    protected final static String SMS_IS_TIMEOUT = "éªŒè¯ç è¶…æ—¶";// çŸ­ä¿¡éªŒè¯ç è¶…æ—¶
 
-    // ĞÂÔö
-    protected final static String SMS_SEND_FAIL = "·¢ËÍÑéÖ¤Âë¶ÌĞÅÊ§°Ü";// ·¢ËÍÑéÖ¤Âë¶ÌĞÅÊ§°Ü
+    // æ–°å¢
+    protected final static String SMS_SEND_FAIL = "å‘é€éªŒè¯ç çŸ­ä¿¡å¤±è´¥";// å‘é€éªŒè¯ç çŸ­ä¿¡å¤±è´¥
 
-    // ĞÂÔö
-    protected final static String PHONE_IS_EXIST = "´ËºÅÂëÒÑ×¢²á";// ´ËºÅÂëÒÑ×¢²á
+    // æ–°å¢
+    protected final static String PHONE_IS_EXIST = "æ­¤å·ç å·²æ³¨å†Œ";// æ­¤å·ç å·²æ³¨å†Œ
 
-    // ĞÂÔö
-    protected final static String REGISTER_BINDING_FAIL = "×¢²áÂë°ó¶¨Ê§°Ü";// ×¢²áÂë°ó¶¨Ê§°Ü
+    // æ–°å¢
+    protected final static String REGISTER_BINDING_FAIL = "æ³¨å†Œç ç»‘å®šå¤±è´¥";// æ³¨å†Œç ç»‘å®šå¤±è´¥
 
     /**
-     * app¶Ëµ÷ÓÃ½Ó¿Ú·şÎñÆ÷Òì³£
+     * appç«¯è°ƒç”¨æ¥å£æœåŠ¡å™¨å¼‚å¸¸
      */
     protected final static String SERVER_ERROR = "server_error";
 
     /**
-     * app¶ËurlÓĞÎó
+     * appç«¯urlæœ‰è¯¯
      */
     protected final static String URL_ERROR = "url_error";
 
     /**
-     * app¶ËÎ´ÖªÒì³£
+     * appç«¯æœªçŸ¥å¼‚å¸¸
      */
     protected final static String UNKNOW_ERROR = "unknow_error";
 
     /**
-     * app¶Ë·şÎñ½Ó¿ÚÊı¾İ²ãÒì³£
+     * appç«¯æœåŠ¡æ¥å£æ•°æ®å±‚å¼‚å¸¸
      */
-    protected final static String DATA_ACCESS_ERROR = "app¶Ë·şÎñ½Ó¿ÚÊı¾İ²ãÒì³£";
+    protected final static String DATA_ACCESS_ERROR = "appç«¯æœåŠ¡æ¥å£æ•°æ®å±‚å¼‚å¸¸";
 
     /**
-     * ÏµÍ³ÔËĞĞÒì³£
+     * ç³»ç»Ÿè¿è¡Œå¼‚å¸¸
      */
     protected final static String SYSTEM_ERROR = "system_access_error";
 
     /**
-     * ¿Í»§¶ËÇëÇóÒì³£
+     * å®¢æˆ·ç«¯è¯·æ±‚å¼‚å¸¸
      */
     protected final static String APP_REQUEST_ERROR = "app_request_error";
 
     /**
-     * ajaxÇëÇó»òÕß¿Í»§¶ËÇëÇó,½«·µ»ØµÄjsonÊı¾İ
+     * ajaxè¯·æ±‚æˆ–è€…å®¢æˆ·ç«¯è¯·æ±‚,å°†è¿”å›çš„jsonæ•°æ®
      * 
      * @param obj
      */
@@ -125,7 +127,7 @@ public class AppController extends BaseController {
     }
 
     /**
-     * ajaxÇëÇó»òÕß¿Í»§¶ËÇëÇó,½«·µ»ØµÄjsonÊı¾İ
+     * ajaxè¯·æ±‚æˆ–è€…å®¢æˆ·ç«¯è¯·æ±‚,å°†è¿”å›çš„jsonæ•°æ®
      * 
      * @param obj
      */
@@ -156,7 +158,7 @@ public class AppController extends BaseController {
     }
 
     /**
-     * »ñÈ¡²ÎÊı
+     * è·å–å‚æ•°
      * 
      * @param key
      * @return
@@ -176,21 +178,21 @@ public class AppController extends BaseController {
     }
 
     /**
-     * ¸ñÊ½»¯Ê±¼ä
+     * æ ¼å¼åŒ–æ—¶é—´
      * 
-     * @param date ÈÕÆÚ
-     * @param pattern ¸ñÊ½
-     * @return Ê±¼ä×Ö·û´®
+     * @param date æ—¥æœŸ
+     * @param pattern æ ¼å¼
+     * @return æ—¶é—´å­—ç¬¦ä¸²
      */
     public String formatDate(Date date, String pattern) {
         return new SimpleDateFormat(pattern).format(date);
     }
 
     /**
-     * ¸ñÊ½»¯Ê±¼ä
+     * æ ¼å¼åŒ–æ—¶é—´
      * 
-     * @param date ÈÕÆÚ
-     * @return Ê±¼ä×Ö·û´®
+     * @param date æ—¥æœŸ
+     * @return æ—¶é—´å­—ç¬¦ä¸²
      */
     public String formatDate(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
@@ -204,16 +206,16 @@ public class AppController extends BaseController {
         cr.setStatus(FAIL);
         logger = Logger.getLogger(clazz.getName());
         try {
-            if (e instanceof DataAccessException) {// Êı¾İ¿â²ã²Ù×÷Òì³£
+            if (e instanceof DataAccessException) {// æ•°æ®åº“å±‚æ“ä½œå¼‚å¸¸
                 logger.error(clazz.getName() + " DataAccessException error:", e);
                 cr.setMsg(DATA_ACCESS_ERROR);
-            } else if (e instanceof SystemException) {// ÔËĞĞÊ±Òì³£
+            } else if (e instanceof SystemException) {// è¿è¡Œæ—¶å¼‚å¸¸
                 logger.error(clazz.getName() + " SystemException error:", e);
                 cr.setMsg(SYSTEM_ERROR);
             } else if (e instanceof NullPointerException) {
                 logger.error(clazz.getName() + " NullPointerException error:", e);
                 cr.setMsg(PARAM_ERROR);
-            } else {// ÆäËûÒì³£
+            } else {// å…¶ä»–å¼‚å¸¸
                 logger.error(clazz.getName() + " Exceipton error:", e);
                 cr.setMsg(UNKNOW_ERROR);
             }

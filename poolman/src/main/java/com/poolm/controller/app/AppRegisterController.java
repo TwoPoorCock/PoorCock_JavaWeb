@@ -23,8 +23,8 @@ public class AppRegisterController extends AppController{
 	@Resource
 	private IAppUserService appUserService;
   
-	/***
-	 * APP×¢²á
+	/**
+	 * APPæ³¨å†Œ
 	 */
 	@RequestMapping(value={"/register"}, method={RequestMethod.POST, RequestMethod.GET})
 	public void appRegister(){
@@ -34,24 +34,23 @@ public class AppRegisterController extends AppController{
 			String password = getParameter("passWord");
 			logger.info("userName=" + userName + " passWord=" + password);
 			if (TextHelper.isNullOrEmpty(userName)){
-				data.setStatus(0);
+				data.setStatus(FAIL);
 				data.setMsg(PARAM_ERROR);
 			}else{
 				Map<String, Object> map = appUserService.getUserByName(userName);
-				logger.info("Map==="+map);
 				if (!TextHelper.isNullOrEmpty(map)){
-					data.setStatus(0);
+					data.setStatus(FAIL);
 					data.setMsg(USER_EXIST);
 				}else{
-					logger.info("pass");
 					int result = appUserService.addUser(userName, password);
 					if (result > 0) {
-						data.setStatus(1);
+						data.setStatus(SUCCESS);
+						data.setMsg(MSG_SUCCESS);
 					}
 				}
 			}
 		}catch (UnsupportedEncodingException e){
-			data.setStatus(0);
+			data.setStatus(FAIL);
 			data.setMsg(DATA_ACCESS_ERROR);
 			logger.error("appLogin error:::" + e.getMessage());
 			e.printStackTrace();
@@ -61,7 +60,7 @@ public class AppRegisterController extends AppController{
 	}
   
 	/***
-	 * APPµÇÂ½
+	 * APPç™»é™†
 	 */
 	@RequestMapping(value={"/login"}, method={RequestMethod.POST, RequestMethod.GET})
 	public void appLogin(){
@@ -71,21 +70,22 @@ public class AppRegisterController extends AppController{
 			String passWord = getParameter("passWord");
 			logger.info("userName=" + userName + " passWord=" + passWord);
 			if (TextHelper.isNullOrEmpty(userName)||TextHelper.isNullOrEmpty(passWord)){
-				data.setStatus(0);
+				data.setStatus(FAIL);
 				data.setMsg(PARAM_ERROR);
 			}else{
 				Map<String, Object> map = appUserService.getUserByName(userName);
 				String pwd = map.get("passWord").toString();
 				if (!pwd.equals(passWord)){
-					data.setStatus(0);
+					data.setStatus(FAIL);
 					data.setMsg(ACCOUNT_OR_PASSWORD_ERROR);
 				}else{
 					data.putInData("UserNotice", map);
-					data.setStatus(1);
+					data.setStatus(SUCCESS);
+					data.setMsg(MSG_SUCCESS);
 				}
 			}
 		}catch (Exception e){
-			data.setStatus(0);
+			data.setStatus(FAIL);
 			data.setMsg(DATA_ACCESS_ERROR);
 			e.printStackTrace();
 		}finally{

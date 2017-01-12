@@ -6,9 +6,14 @@ import com.poolm.pojo.User;
 
 public interface AppUserMapper {
 
-	Map<String, Object> appLogin(String userName, String passWord);
+	public Map<String, Object> appLogin(String userName, String passWord);
 	  
-	Map<String, Object> selectByUserName(String userName);
+	public Map<String, Object> selectByUserName(String userName);
 	  
-	int addUser(User user);
+	public int addUser(User user);
+	
+	public User getUserById(Integer userId);
+	
+	public int updateByPrimaryKey(User user);
+	
 }
