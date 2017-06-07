@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.poolm.pojo.Dish" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="dishName" property="dishname" jdbcType="VARCHAR" />
-    <result column="flag_r" property="flagR" jdbcType="TINYINT" />
-    <result column="flag_h" property="flagH" jdbcType="TINYINT" />
-    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="flag_r" property="flagR" jdbcType="VARCHAR" />
+    <result column="flag_h" property="flagH" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, dishName, flag_r, flag_h, type
@@ -17,6 +17,36 @@
     from dish
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAllDishsForCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from dish as d
+  </select>
+  <select id="getDishsForCount" resultType="java.lang.Integer">
+    select count(*) from dish as d
+  </select>
+  <update id="enableOrDisableDish" parameterType="java.util.Map">
+    update dish set type=#{status} where id=#{dishId}
+  </update>
+  <select id="getAllDishsPage" resultType="java.util.Map" parameterType="java.util.Map">
+    select d.id,d.dishName,d.flag_r, d.flag_h, d.type 
+    from dish as d
+    where 1=1
+    <if test="dish.dishname!=null and dish.dishname!=''" >
+      and d.dishName = '%${dish.dishName}%'
+  </if>
+  <if test="dish.flagR!=null and dish.flagR!=''" >
+      and d.flag_r = '%${dish.flag_r}%'
+  </if>
+  <if test="dish.flagH!=null and dish.flagH!=''" >
+      and d.flag_h = '%${dish.flag_h}%'
+  </if>
+  <if test="dish.id!=null and dish.id!=''">
+      and d.id ='${dish.id}'
+  </if>
+  <if test="page.orderName!=null and page.orderName!=''" >
+    ORDER by ${page.orderName}  ${page.orderBy}
+  </if>
+  limit ${beginSize},${page.pageSize}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from dish
     where id = #{id,jdbcType=INTEGER}
@@ -24,8 +54,8 @@
   <insert id="insert" parameterType="com.poolm.pojo.Dish" >
     insert into dish (id, dishName, flag_r, 
       flag_h, type)
-    values (#{id,jdbcType=INTEGER}, #{dishname,jdbcType=VARCHAR}, #{flagR,jdbcType=TINYINT}, 
-      #{flagH,jdbcType=TINYINT}, #{type,jdbcType=TINYINT})
+    values (#{id,jdbcType=INTEGER}, #{dishname,jdbcType=VARCHAR}, #{flagR,jdbcType=VARCHAR}, 
+      #{flagH,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.poolm.pojo.Dish" >
     insert into dish
@@ -54,13 +84,13 @@
         #{dishname,jdbcType=VARCHAR},
       </if>
       <if test="flagR != null" >
-        #{flagR,jdbcType=TINYINT},
+        #{flagR,jdbcType=VARCHAR},
       </if>
       <if test="flagH != null" >
-        #{flagH,jdbcType=TINYINT},
+        #{flagH,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        #{type,jdbcType=TINYINT},
+        #{type,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -71,13 +101,13 @@
         dishName = #{dishname,jdbcType=VARCHAR},
       </if>
       <if test="flagR != null" >
-        flag_r = #{flagR,jdbcType=TINYINT},
+        flag_r = #{flagR,jdbcType=VARCHAR},
       </if>
       <if test="flagH != null" >
-        flag_h = #{flagH,jdbcType=TINYINT},
+        flag_h = #{flagH,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=TINYINT},
+        type = #{type,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -85,9 +115,9 @@
   <update id="updateByPrimaryKey" parameterType="com.poolm.pojo.Dish" >
     update dish
     set dishName = #{dishname,jdbcType=VARCHAR},
-      flag_r = #{flagR,jdbcType=TINYINT},
-      flag_h = #{flagH,jdbcType=TINYINT},
-      type = #{type,jdbcType=TINYINT}
+      flag_r = #{flagR,jdbcType=VARCHAR},
+      flag_h = #{flagH,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

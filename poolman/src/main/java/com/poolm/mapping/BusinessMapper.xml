@@ -5,9 +5,12 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, position
+    id, name, position, phone, email, status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -15,14 +18,61 @@
     from business
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAllBusinessForCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	SELECT count(*) FROM business AS u
+  	<if test="business.name!=null and business.name!=''" >
+		and u.name like '%${business.name}%'
+	</if>
+	<if test="business.phone!=null and business.phone!=''">
+	 	and u.phone='${business.phone}'
+	</if>
+	<if test="business.email!=null and business.email!=''">
+		and u.email='${business.email}'
+	</if>
+	<if test="business.position!=null and business.position!=''">
+		and u.position='${business.position}'
+	</if>
+  </select>
+  <select id="getBusinessForCount" resultType="java.lang.Integer">
+  	SELECT count(*) FROM business AS u
+  </select>
+  <select id="getAllBusinessPage" resultType="java.util.Map" parameterType="java.util.Map">
+  	SELECT u.id,u.name,u.phone,u.email,u.position,u.status
+	FROM business u
+	WHERE 1=1
+	<if test="business.name!=null and business.name!=''" >
+		and u.name = '%${business.name}%'
+	</if>
+	<if test="business.phone!=null and business.phone!=''" >
+		and u.phone = '%${business.phone}%'
+	</if>
+	<if test="business.position!=null and business.position!=''" >
+		and u.position = '%${business.position}%'
+	</if>
+	<if test="business.email!=null and business.email!=''" >
+		and u.email = '%${business.email}%'
+	</if>
+	<if test="business.id!=null and business.id!=''" >
+		and u.id = '%${business.id}%'
+	</if>
+	<if test="page.orderName!=null and page.orderName!=''" >
+		ORDER by ${page.orderName}  ${page.orderBy}
+	</if>
+	limit ${beginSize},${page.pageSize}
+  </select>
+  <update id="enableOrDisableBusiness" parameterType="java.util.Map">
+  	update business set status=#{status} where id=#{businessId}
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from business
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.poolm.pojo.Business" >
-    insert into business (id, name, position
+    insert into business (id, name, position, 
+      phone, email, status
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.poolm.pojo.Business" >
@@ -37,6 +87,15 @@
       <if test="position != null" >
         position,
       </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -47,6 +106,15 @@
       </if>
       <if test="position != null" >
         #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -59,13 +127,25 @@
       <if test="position != null" >
         position = #{position,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.poolm.pojo.Business" >
     update business
     set name = #{name,jdbcType=VARCHAR},
-      position = #{position,jdbcType=VARCHAR}
+      position = #{position,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

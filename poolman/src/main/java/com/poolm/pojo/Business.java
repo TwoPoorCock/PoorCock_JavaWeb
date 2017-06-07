@@ -7,6 +7,12 @@ public class Business {
 
     private String position;
 
+    private String phone;
+
+    private String email;
+
+    private Integer status;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +35,29 @@ public class Business {
 
     public void setPosition(String position) {
         this.position = position == null ? null : position.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

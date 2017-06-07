@@ -5,11 +5,11 @@ public class Dish {
 
     private String dishname;
 
-    private Byte flagR;
+    private String flagR;
 
-    private Byte flagH;
+    private String flagH;
 
-    private Byte type;
+    private Integer type;
 
     public Integer getId() {
         return id;
@@ -27,27 +27,27 @@ public class Dish {
         this.dishname = dishname == null ? null : dishname.trim();
     }
 
-    public Byte getFlagR() {
+    public String getFlagR() {
         return flagR;
     }
 
-    public void setFlagR(Byte flagR) {
-        this.flagR = flagR;
+    public void setFlagR(String flagR) {
+        this.flagR = flagR == null ? null : flagR.trim();
     }
 
-    public Byte getFlagH() {
+    public String getFlagH() {
         return flagH;
     }
 
-    public void setFlagH(Byte flagH) {
-        this.flagH = flagH;
+    public void setFlagH(String flagH) {
+        this.flagH = flagH == null ? null : flagH.trim();
     }
 
-    public Byte getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Byte type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 }

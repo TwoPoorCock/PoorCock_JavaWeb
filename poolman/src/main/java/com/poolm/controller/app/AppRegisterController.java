@@ -2,11 +2,14 @@ package com.poolm.controller.app;
 
 import com.poolm.controller.AppController;
 import com.poolm.entity.AppData;
-import com.poolm.service.impl.IAppUserService;
+import com.poolm.service.impl.app.IAppUserService;
 import com.poolm.util.TextHelper;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;

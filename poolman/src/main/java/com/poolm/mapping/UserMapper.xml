@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.poolm.pojo.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userName" property="username" jdbcType="VARCHAR" />
-    <result column="passWord" property="passWord" jdbcType="VARCHAR" />
+    <result column="passWord" property="password" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="height" property="height" jdbcType="DOUBLE" />
@@ -13,9 +13,11 @@
     <result column="kouqiangky" property="kouqiangky" jdbcType="INTEGER" />
     <result column="yayingcx" property="yayingcx" jdbcType="INTEGER" />
     <result column="jianfei" property="jianfei" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userName, passWord, gender, phone, height, weight, weiteng, kouqiangky, yayingcx, jianfei
+    id, userName, passWord, gender, phone, height, weight, weiteng, kouqiangky, yayingcx, 
+    jianfei, status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,25 +25,71 @@
     from user_
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAllUsersForCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	SELECT count(*) FROM user_ AS u
+  	<if test="user.username!=null and user.username!=''" >
+		and u.userName like '%${user.userName}%'
+	</if>
+	<if test="user.phone!=null and user.phone!=''">
+	 	and u.phone='${user.phone}'
+	</if>
+	<if test="user.gender!=null and user.gender!=''">
+		and u.gender='${user.gender}'
+	</if>
+  </select>
+  <select id="getUsersForCount" resultType="java.lang.Integer">
+  	SELECT count(*) FROM user_ AS u
+  </select>
+  <select id="getAllUsersPage" resultType="java.util.Map" parameterType="java.util.Map">
+  	SELECT u.id,u.userName,u.gender,u.phone,u.height,u.weight,u.status
+	FROM user_ u
+	WHERE 1=1
+	<if test="user.username!=null and user.username!=''" >
+			and u.userName = '%${user.userName}%'
+	</if>
+	<if test="user.phone!=null and user.phone!=''">
+			and u.phone='${user.phone}'
+	</if>
+	<if test="user.id!=null and user.id!=''">
+			and u.id ='${user.id}'
+	</if>
+	<if test="page.orderName!=null and page.orderName!=''" >
+		ORDER by ${page.orderName}  ${page.orderBy}
+	</if>
+	
+	limit ${beginSize},${page.pageSize}
+  </select>
+  
+  <update id="enableOrDisableUser" parameterType="java.util.Map">
+  update user_ set status=#{status} where id=#{userId}
+  </update>
+  
   <select id="selectByUserName" resultMap="BaseResultMap" parameterType="com.poolm.pojo.User" >
     select  
     <include refid="Base_Column_List" />
     from user_
     where userName = #{userName}
   </select>
+  
+  <select id="checkPhone" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(*) from user_ as u where u.phone=#{phone}
+	</select>
+	
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.poolm.pojo.User" >
-    insert into user_ (id, userName, passWord, gender, 
-      phone, height, weight, 
-      weiteng, kouqiangky, yayingcx, 
-      jianfei)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
-      #{weiteng,jdbcType=INTEGER}, #{kouqiangky,jdbcType=INTEGER}, #{yayingcx,jdbcType=INTEGER}, 
-      #{jianfei,jdbcType=INTEGER})
+    insert into user_ (id, userName, passWord, 
+      gender, phone, height, 
+      weight, weiteng, kouqiangky, 
+      yayingcx, jianfei, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{height,jdbcType=DOUBLE}, 
+      #{weight,jdbcType=DOUBLE}, #{weiteng,jdbcType=INTEGER}, #{kouqiangky,jdbcType=INTEGER}, 
+      #{yayingcx,jdbcType=INTEGER}, #{jianfei,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.poolm.pojo.User" >
     insert into user_
@@ -52,7 +100,7 @@
       <if test="username != null" >
         userName,
       </if>
-      <if test="passWord != null" >
+      <if test="password != null" >
         passWord,
       </if>
       <if test="gender != null" >
@@ -79,6 +127,9 @@
       <if test="jianfei != null" >
         jianfei,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -87,8 +138,8 @@
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="passWord != null" >
-        #{passWord,jdbcType=VARCHAR},
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="gender != null" >
         #{gender,jdbcType=VARCHAR},
@@ -114,6 +165,9 @@
       <if test="jianfei != null" >
         #{jianfei,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.poolm.pojo.User" >
@@ -122,8 +176,8 @@
       <if test="username != null" >
         userName = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="passWord != null" >
-        passWord = #{passWord,jdbcType=VARCHAR},
+      <if test="password != null" >
+        passWord = #{password,jdbcType=VARCHAR},
       </if>
       <if test="gender != null" >
         gender = #{gender,jdbcType=VARCHAR},
@@ -149,13 +203,16 @@
       <if test="jianfei != null" >
         jianfei = #{jianfei,jdbcType=INTEGER},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.poolm.pojo.User" >
     update user_
     set userName = #{username,jdbcType=VARCHAR},
-    	passWord = #{passWord,jdbcType=VARCHAR},
+      passWord = #{password,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       height = #{height,jdbcType=DOUBLE},
@@ -163,7 +220,8 @@
       weiteng = #{weiteng,jdbcType=INTEGER},
       kouqiangky = #{kouqiangky,jdbcType=INTEGER},
       yayingcx = #{yayingcx,jdbcType=INTEGER},
-      jianfei = #{jianfei,jdbcType=INTEGER}
+      jianfei = #{jianfei,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

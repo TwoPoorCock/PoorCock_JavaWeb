@@ -1,7 +1,7 @@
 ﻿$(function () {
     if (!window.ActiveXObject && !!document.createElement("canvas").getContext) {
         //$.getScript("http://im-img.qq.com/pcqq/js/200/cav.js?_=1428576021379",
-        $.getScript("../login/scripts/need.js",
+        $.getScript("login/scripts/need.js",
                 function () {
                     var t = {
                         width: 1.5,

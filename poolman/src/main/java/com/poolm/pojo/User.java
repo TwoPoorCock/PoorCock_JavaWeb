@@ -1,113 +1,123 @@
 package com.poolm.pojo;
 
 public class User {
-    private Integer id;
+	private Integer id;
 
-    private String username;
-    
-    private String passWord;
+	private String username;
 
-    private String gender;
+	private String password;
 
-    private String phone;
+	private String gender;
 
-    private Double height;
+	private String phone;
 
-    private Double weight;
+	private Double height;
 
-    private Integer weiteng;
+	private Double weight;
 
-    private Integer kouqiangky;
+	private Integer weiteng;
 
-    private Integer yayingcx;
+	private Integer kouqiangky;
 
-    private Integer jianfei;
+	private Integer yayingcx;
 
-    public Integer getId() {
-        return id;
-    }
+	private Integer jianfei;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private Integer status;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-    
-    public String getPassWord() {
-		return passWord;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username == null ? null : username.trim();
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password == null ? null : password.trim();
 	}
 
 	public String getGender() {
-        return gender;
-    }
+		return gender;
+	}
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
-    }
+	public void setGender(String gender) {
+		this.gender = gender == null ? null : gender.trim();
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
+	public void setPhone(String phone) {
+		this.phone = phone == null ? null : phone.trim();
+	}
 
-    public Double getHeight() {
-        return height;
-    }
+	public Double getHeight() {
+		return height;
+	}
 
-    public void setHeight(Double height) {
-        this.height = height;
-    }
+	public void setHeight(Double height) {
+		this.height = height;
+	}
 
-    public Double getWeight() {
-        return weight;
-    }
+	public Double getWeight() {
+		return weight;
+	}
 
-    public void setWeight(Double weight) {
-        this.weight = weight;
-    }
+	public void setWeight(Double weight) {
+		this.weight = weight;
+	}
 
-    public Integer getWeiteng() {
-        return weiteng;
-    }
+	public Integer getWeiteng() {
+		return weiteng;
+	}
 
-    public void setWeiteng(Integer weiteng) {
-        this.weiteng = weiteng;
-    }
+	public void setWeiteng(Integer weiteng) {
+		this.weiteng = weiteng;
+	}
 
-    public Integer getKouqiangky() {
-        return kouqiangky;
-    }
+	public Integer getKouqiangky() {
+		return kouqiangky;
+	}
 
-    public void setKouqiangky(Integer kouqiangky) {
-        this.kouqiangky = kouqiangky;
-    }
+	public void setKouqiangky(Integer kouqiangky) {
+		this.kouqiangky = kouqiangky;
+	}
 
-    public Integer getYayingcx() {
-        return yayingcx;
-    }
+	public Integer getYayingcx() {
+		return yayingcx;
+	}
 
-    public void setYayingcx(Integer yayingcx) {
-        this.yayingcx = yayingcx;
-    }
+	public void setYayingcx(Integer yayingcx) {
+		this.yayingcx = yayingcx;
+	}
 
-    public Integer getJianfei() {
-        return jianfei;
-    }
+	public Integer getJianfei() {
+		return jianfei;
+	}
 
-    public void setJianfei(Integer jianfei) {
-        this.jianfei = jianfei;
-    }
+	public void setJianfei(Integer jianfei) {
+		this.jianfei = jianfei;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 }
